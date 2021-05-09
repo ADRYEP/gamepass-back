@@ -27,6 +27,18 @@ class gameController{
             })
     }
 
+    async createGame(title,released,install_size){
+        return await session
+            .run('CREATE (n:Game {title:$titleParam, released:$releasedParam, install_size:$install_sizeParam}) RETURN n',
+            {titleParam:title, releasedParam:released, install_sizeParam:install_size})
+            .then(function(result){
+                console.log(result.records[0].get(0));
+            })
+            .catch(function(err){
+                console.log(err);
+            })
+    }
+
 }
 
 export default gameController
