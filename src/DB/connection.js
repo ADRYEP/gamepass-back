@@ -13,6 +13,6 @@ var session = driver.session({
   defaultAccessMode: neo4j.session.WRITE
 })
 
-await driver.close()
+// await driver.close()
 
 export default session
