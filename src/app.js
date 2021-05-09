@@ -1,11 +1,14 @@
 import express from "express"
 import morgan from "morgan"
-import path from "path"
-import bodyParser from "body-parser"
+import cors from "cors"
+// import path from "path"
+// import bodyParser from "body-parser"
 
 import gamesRoutes from './server/routes/gameRoutes.js'
 import developerRoutes from "./server/routes/developerRoutes.js"
 import genreRoutes from "./server/routes/genreRoutes.js"
+
+import session from "./DB/connection.js"
 
 //ALLOWS TO USE ENV VARS
 import dotenv from "dotenv";
@@ -15,6 +18,7 @@ dotenv.config()
 // const bodyParser = require('body-parser')
 
 const app = express()
+app.use(cors())
 
 app.get('/', (req, res) => {
   res.send('BackEnd up')
@@ -28,5 +32,5 @@ app.use("/genres", genreRoutes)
 app.use(morgan('dev'))
 
 app.listen(process.env.PORT, () => {
-console.log(`BackEnd on port: ${process.env.PORT}`)
+    console.log(`BackEnd on port: ${process.env.PORT}`)
 })
