@@ -1,5 +1,4 @@
 import express from "express"
-import morgan from "morgan"
 import cors from "cors"
 // import path from "path"
 import bodyParser from "body-parser"
@@ -8,7 +7,7 @@ import gamesRoutes from './server/routes/gameRoutes.js'
 import developerRoutes from "./server/routes/developerRoutes.js"
 import genreRoutes from "./server/routes/genreRoutes.js"
 
-import session from "./DB/connection.js"
+// import session from "./DB/connection.js"
 
 //ALLOWS TO USE ENV VARS
 import dotenv from "dotenv";
@@ -33,8 +32,6 @@ app.get('/', (req, res) => {
 app.use("/game", gamesRoutes)
 app.use("/developer", developerRoutes)
 app.use("/genres", genreRoutes)
-
-app.use(morgan('dev'))
 
 app.listen(process.env.PORT, () => {
     console.log(`BackEnd on port: ${process.env.PORT}`)
