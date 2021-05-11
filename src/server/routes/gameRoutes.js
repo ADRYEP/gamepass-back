@@ -17,12 +17,46 @@ gameRoutes.get('/:title', async (req,res) => {
   res.send(await game.getGameBytitle(title))
 })
 
-gameRoutes.post('/:title/:install_size/:released', async (req,res) => {
-  var title = req.params.title
-  var install_size = req.params.install_size
-  var released = req.params.released
+gameRoutes.post('/', async (req,res) => {
+  var title = req.body.title
+  var install_size = req.body.install_size
+  var released = req.body.released
+  
+  console.log(req.body);
 
   res.send(await game.createGame(title,install_size,released))
+})
+
+gameRoutes.delete('/:title', async (req,res) => {
+  var title = req.params.title
+
+  res.send(await game.deleteGame(title))
+})
+
+gameRoutes.get('/dev/:title', async (req,res) => {
+  var title = req.params.title
+  
+  res.send(await game.getGamesDev(title))
+})
+
+gameRoutes.get('/genre/:title', async (req,res) => {
+  var title = req.params.title
+  
+  res.send(await game.getGamesGenre(title))
+})
+
+gameRoutes.post('/addDev', async (req,res) => {
+  var titleGame = req.body.titleGame
+  var nameDev = req.body.nameDev
+
+  res.send(await game.addDevtoGame(titleGame,nameDev))
+})
+
+gameRoutes.post('/addGenre', async (req,res) => {
+  var titleGame = req.body.titleGame
+  var nameGenre = req.body.nameGenre
+
+  res.send(await game.addGenretoGame(titleGame,nameGenre))
 })
 
 export default gameRoutes
