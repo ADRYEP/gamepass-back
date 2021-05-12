@@ -2,6 +2,7 @@ import session from '../../DB/connection.js'
 
 class gameController{
 
+    
     async getAll(){
         return await session
             .run('MATCH (n:Game) RETURN n')

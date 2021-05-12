@@ -1,0 +1,23 @@
+version: '3'
+services:
+    backend_gamepass:
+        build: ./
+        command: npm run start
+        volumes: 
+            - "./backend:/usr/src"
+        ports:
+            - "3000:3000"
+        networks:
+            - projectnetwork
+
+    neo4j_gamepass:
+        image: neo4j:3.5
+        ports:
+            - "7474:7474"
+            - "7687:7687"
+        networks:
+            - projectnetwork
+
+networks:
+    projectnetwork:
+        driver: bridge
