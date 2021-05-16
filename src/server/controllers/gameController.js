@@ -1,11 +1,10 @@
 import session from '../../DB/connection.js'
 
 class gameController{
-
     
     async getAll(){
         return await session
-            .run('MATCH (n:Game) RETURN n')
+            .run('MATCH (n:Game) RETURN n ORDER BY n.title ASC')
             .then(function(result){
                 result.records.forEach(function(record){
                     console.log(JSON.stringify(record._fields[0].properties));
@@ -101,8 +100,9 @@ class gameController{
             })
             .catch(function(err){
                 console.log(err);
-            })
+            })            
     }
+
 
 }
 

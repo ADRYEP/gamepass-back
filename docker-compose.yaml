@@ -11,7 +11,7 @@ services:
             - projectnetwork
 
     neo4j_gamepass:
-        image: neo4j:3.5
+        image: neo4j:latest
         ports:
             - "7474:7474"
             - "7687:7687"

@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
 //ROUTER FOLDER DECLARATION
 app.use("/game", gamesRoutes)
 app.use("/developer", developerRoutes)
-app.use("/genres", genreRoutes)
+app.use("/genre", genreRoutes)
 
 app.listen(process.env.PORT, () => {
     console.log(`BackEnd on port: ${process.env.PORT}`)
