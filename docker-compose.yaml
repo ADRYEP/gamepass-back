@@ -3,8 +3,8 @@ services:
     backend_gamepass:
         build: ./
         command: npm run start
-        volumes: 
-            - "./backend:/usr/src"
+        # volumes: 
+            # - "./backend:/usr/src"
         ports:
             - "3000:3000"
         networks:
