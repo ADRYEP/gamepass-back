@@ -3,8 +3,10 @@ services:
     backend_gamepass:
         build: ./
         command: npm run start
-        # volumes: 
-            # - "./backend:/usr/src"
+        volumes: 
+            - "./neo4j:/usr/src"
+        links:
+            - neo4j_gamepass
         ports:
             - "3000:3000"
         networks:
