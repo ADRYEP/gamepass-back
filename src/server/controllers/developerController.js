@@ -25,7 +25,9 @@ class devController{
             .run('MATCH (n:Dev) RETURN n ORDER BY n.name ASC')
             .then(function(result){
                 result.records.forEach(function(record){
-                    data.push(record._fields[0].properties)
+                    record.forEach(element => {
+                        data.push(element.properties)
+                    });
                 });
                 sessionAllDevs.close()
             })

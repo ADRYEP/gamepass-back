@@ -25,13 +25,19 @@ class gameController{
             .run('MATCH (n:Game) RETURN n ORDER BY n.title ASC')
             .then(function(result){
                 result.records.forEach(function(record){
-                    data.push(record._fields[0].properties)
+                    record.forEach(element => {
+                        data.push(element.properties)
+                    });
                 });
+                // data.push(result)
                 sessionAllGames.close()
             })
             .catch(function(err){
                 console.log(err);
             })
+            // console.log(
+            //     data[0].title
+            // );
         return data
     }
 
