@@ -1,19 +1,17 @@
-version: '3'
+version: '3.4'
 services:
     backend_gamepass:
-        build: ./
+        build: './'
         command: npm run start
         volumes: 
-            - "./neo4j:/usr/src"
-        links:
-            - neo4j_gamepass
+            - "./:/usr/src"
         ports:
             - "3000:3000"
         networks:
             - projectnetwork
 
     neo4j_gamepass:
-        image: neo4j:latest
+        image: neo4j:4.2.1
         ports:
             - "7474:7474"
             - "7687:7687"

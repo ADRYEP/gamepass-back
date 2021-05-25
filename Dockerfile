@@ -1,7 +1,7 @@
 FROM node:latest
 
 # Create app directory
-WORKDIR /usr/src/neo4j
+WORKDIR /usr/src/
 
 COPY package*.json ./
 COPY ./src ./src

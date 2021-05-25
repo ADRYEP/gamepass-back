@@ -1,15 +1,33 @@
-import session from '../../DB/connection.js'
+import neo4j from 'neo4j-driver'
+import dotenv from 'dotenv'
+
+dotenv.config()
+
+const driver = neo4j.driver(
+    process.env.DB_URL,
+    neo4j.auth.basic(process.env.DB_USER,process.env.DB_PASS)
+)
+
+let session = driver.session({
+    database: process.env.DB_NAME,
+    defaultAccessMode: neo4j.session.WRITE
+})
 
 class gameController{
     
     async getAll(){
+        let sessionAllGames = driver.session({
+            database: process.env.DB_NAME,
+            defaultAccessMode: neo4j.session.WRITE
+        })
         let data = []
-        await session
+        await sessionAllGames
             .run('MATCH (n:Game) RETURN n ORDER BY n.title ASC')
             .then(function(result){
                 result.records.forEach(function(record){
                     data.push(record._fields[0].properties)
                 });
+                sessionAllGames.close()
             })
             .catch(function(err){
                 console.log(err);
@@ -20,10 +38,17 @@ class gameController{
     async getGameBytitle(title){
         let data = []
         await session
-            .run('MATCH (n:Game {title:$titleParam}) RETURN n',
+            .run('MATCH (n:Game {title:$titleParam})-[r]-(m) RETURN n,r,m',
             {titleParam:title})
             .then(function(result){
-                data.push(result.records[0].get(0).properties)
+                data.push(
+                    result.records[0].get(0).properties,
+                    result.records[0].get(1).type,
+                    result.records[0].get(2).properties,
+                    result.records[1].get(1).type,
+                    result.records[1].get(2).properties,
+                    )
+
             })
             .catch(function(err){
                 console.log(err);
@@ -31,11 +56,11 @@ class gameController{
         return data
     }
 
-    async createGame(title,released,install_size){
+    async createGame(title,released,install_size,cover_image){
         let data = []
         await session
-            .run('CREATE (n:Game {title:$titleParam, released:$releasedParam, install_size:$install_sizeParam}) RETURN n',
-            {titleParam:title, releasedParam:released, install_sizeParam:install_size})
+            .run('CREATE (n:Game {title:$titleParam, released:$releasedParam, install_size:$install_sizeParam, cover_image:$cover_imageParam}) RETURN n',
+            {titleParam:title, releasedParam:released, install_sizeParam:install_size, cover_imageParam:cover_image})
             .then(function(result){
                 data.push(result.records[0].get(0).properties)
             })

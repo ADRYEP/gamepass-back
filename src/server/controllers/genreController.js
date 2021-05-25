@@ -1,15 +1,33 @@
-import session from '../../DB/connection.js'
+import neo4j from 'neo4j-driver'
+import dotenv from 'dotenv'
+
+dotenv.config()
+
+const driver = neo4j.driver(
+    process.env.DB_URL,
+    neo4j.auth.basic(process.env.DB_USER,process.env.DB_PASS)
+)
+
+let session = driver.session({
+    database: process.env.DB_NAME,
+    defaultAccessMode: neo4j.session.WRITE
+})
 
 class genreController{
 
     async getAll(){
+        let sessionAllGenres = driver.session({
+            database: process.env.DB_NAME,
+            defaultAccessMode: neo4j.session.WRITE
+        })
         let data = []
-        await session
+        await sessionAllGenres
             .run('MATCH (n:Genre) RETURN n ORDER BY n.name ASC')
             .then(function(result){
                 result.records.forEach(function(record){
                     data.push(record._fields[0].properties)
                 });
+                sessionAllGenres.close()
             })
             .catch(function(err){
                 console.log(err);

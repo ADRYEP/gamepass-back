@@ -21,10 +21,11 @@ gameRoutes.post('/', async (req,res) => {
   var title = req.body.title
   var install_size = req.body.install_size
   var released = req.body.released
+  var cover_image = req.body.cover_image
   
   console.log(req.body);
 
-  res.send(await game.createGame(title,install_size,released))
+  res.send(await game.createGame(title,install_size,released,cover_image))
 })
 
 gameRoutes.delete('/:title', async (req,res) => {
