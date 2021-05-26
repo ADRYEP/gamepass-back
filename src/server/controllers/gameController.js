@@ -62,11 +62,11 @@ class gameController{
         return data
     }
 
-    async createGame(title,released,install_size,cover_image){
+    async createGame(title,released,install_size,cover_image,dev,genre){
         let data = []
         await session
-            .run('CREATE (n:Game {title:$titleParam, released:$releasedParam, install_size:$install_sizeParam, cover_image:$cover_imageParam}) RETURN n',
-            {titleParam:title, releasedParam:released, install_sizeParam:install_size, cover_imageParam:cover_image})
+            .run('CREATE (n:Game {title:$titleParam, released:$releasedParam, install_size:$install_sizeParam, cover_image:$cover_imageParam}) MERGE (n)-[rDev:DEVELOPED_BY]-(d:Dev {name:$devParam}) MERGE (n)-[rGenre:TYPE_OF_GAME]-(g:Genre {name:$genreParam}) RETURN n',
+            {titleParam:title, releasedParam:released, install_sizeParam:install_size, cover_imageParam:cover_image, devParam:dev, genreParam:genre})
             .then(function(result){
                 data.push(result.records[0].get(0).properties)
             })
