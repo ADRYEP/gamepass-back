@@ -13,6 +13,11 @@ let session = driver.session({
     defaultAccessMode: neo4j.session.WRITE
 })
 
+let sessionAllGraph = driver.session({
+    database: process.env.DB_NAME,
+    defaultAccessMode: neo4j.session.WRITE
+})
+
 class gameController{
     
     async getAll(){
@@ -62,11 +67,11 @@ class gameController{
         return data
     }
 
-    async createGame(title,released,install_size,cover_image,dev,genre){
+    async createGame(title,released,install_size,cover_image){
         let data = []
         await session
-            .run('CREATE (n:Game {title:$titleParam, released:$releasedParam, install_size:$install_sizeParam, cover_image:$cover_imageParam}) MERGE (n)-[rDev:DEVELOPED_BY]-(d:Dev {name:$devParam}) MERGE (n)-[rGenre:TYPE_OF_GAME]-(g:Genre {name:$genreParam}) RETURN n',
-            {titleParam:title, releasedParam:released, install_sizeParam:install_size, cover_imageParam:cover_image, devParam:dev, genreParam:genre})
+            .run('CREATE (n:Game {title:$titleParam, released:$releasedParam, install_size:$install_sizeParam, cover_image:$cover_imageParam}) RETURN n',
+            {titleParam:title, releasedParam:released, install_sizeParam:install_size, cover_imageParam:cover_image})
             .then(function(result){
                 data.push(result.records[0].get(0).properties)
             })
@@ -149,6 +154,21 @@ class gameController{
             .catch(function(err){
                 console.log(err);
             })            
+        return data
+    }
+
+    async getAllGraph(){
+        let data = []
+        await sessionAllGraph
+            .run('MATCH (n)-[r]-() return n,r')
+            .then(function(result){
+                result.records.forEach(function(record){
+                    record.forEach(element => {
+                        data.push(element)
+                    });
+                });
+                // data.push(result)
+            })
         return data
     }
 

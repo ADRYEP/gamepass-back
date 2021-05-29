@@ -1,6 +1,7 @@
 CREATE (FIFA:Game {title:'FIFA 21', released:2020, install_size:'50 GB', cover_image:'https://media.contentapi.ea.com/content/dam/ea/fifa/fifa-21/cover-athlete/common/fifa21-cover-section-2.png.adapt.320w.png'})
 CREATE (Sims:Game {title:'Sims 4', released:2014, install_size:'16 GB', cover_image:'https://nerdist.com/wp-content/uploads/2020/04/Sims-4-Cover.jpg'})
 CREATE (Madden:Game {title:'Madden 21', released:2020, install_size:'45 GB', cover_image:'https://www.pdvg.it/wp-content/uploads/2020/06/M21_MVP_ESRB.jpg'})
+CREATE (StarWars:Game {title:'STAR WARS Battlefront II', released:2019, install_size:'60 GB', cover_image:'https://s1.gaming-cdn.com/images/products/7056/orig/star-wars-battlefront-ii-celebration-edition-cover.jpg'})
 CREATE (EA:Dev {name:'Electronic Arts', creation_year:1982, country:'EEUU'})
 CREATE (Sports:Genre {name:'Sports'})
 CREATE (Simulation:Genre {name:'Simulation'})
