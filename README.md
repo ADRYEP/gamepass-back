@@ -36,7 +36,7 @@ Backend del proyecto final para DB II
         - user: neo4j
         - password: neo4j
     - Una vez hecho esto se pedirá modificar el password y se debe colocar la siguiente: **1234** como se ha declarado en el .env
-    - Ya que desplegado de esta manera no se permite importar un archivo .cypher para cargar la data, se deberá copiar el contenido del archivo **load-gamesDB.cypher** para crear un nuevo grafo. (El contenido de este archivo se adjuntará igualmente al final del documento)
+    - Ya que desplegado de esta manera no se permite importar un archivo .cypher para cargar la data, se deberá copiar el contenido del archivo **load-gamesDB.cypher** para crear un nuevo grafo.
 
 - PROYECTO INICIALIZADO EN LOCAL
     - Iniciar la aplicación **Neo4j Desktop**
